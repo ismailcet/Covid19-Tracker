@@ -3,7 +3,7 @@ import countrySlice from "./Slices/countrySlice";
 import covidSlice from "./Slices/covidSlice";
 export const store = configureStore({
   reducer: {
-    countries: countrySlice,
+    country: countrySlice,
     covid: covidSlice,
   },
 });
