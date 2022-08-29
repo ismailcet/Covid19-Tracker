@@ -4,15 +4,16 @@ import CountryForm from "./Components/CountryForm";
 import CountryData from "./Components/CountryData";
 import CountryCharts from "./Components/CountryCharts";
 import Footer from "./Components/Footer";
-
+import MapChart from "./Components/MapChart";
 function App() {
   return (
-    <div className="App">
+    <div>
       <Header />
       <CountryForm />
       <CountryData />
       <CountryCharts />
       <Footer />
+      <MapChart />
     </div>
   );
 }
