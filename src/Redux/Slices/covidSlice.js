@@ -11,6 +11,16 @@ export const fetchCovidData = createAsyncThunk(
   }
 );
 
+export const fetchCountryImage = createAsyncThunk(
+  "covid/fetchCountryImage",
+  async (countryID) => {
+    const res = await fetch(
+      `${process.env.REACT_APP_API_BASE_ENDPOINT_IMG}/${countryID}`
+    ).then((data) => data.url);
+    return res;
+  }
+);
+
 export const covidSlice = createSlice({
   name: "covid",
   initialState: {
@@ -19,9 +29,16 @@ export const covidSlice = createSlice({
     deaths: "",
     isLoading: true,
     error: "",
+    img: "",
+    isImageLoading: true,
   },
-  reducers: {},
+  reducers: {
+    setLoading: (state, action) => {
+      state.isLoading = true;
+    },
+  },
   extraReducers: {
+    //Covid Data
     [fetchCovidData.pending]: (state) => {
       state.isLoading = true;
     },
@@ -34,7 +51,15 @@ export const covidSlice = createSlice({
       state.deaths = action.payload.deaths.value;
       state.isLoading = false;
     },
+    //Country Image
+    [fetchCountryImage.pending]: (state) => {
+      state.isImageLoading = true;
+    },
+    [fetchCountryImage.fulfilled]: (state, action) => {
+      state.img = action.payload;
+      state.isImageLoading = false;
+    },
   },
 });
-
+export const { setLoading } = covidSlice.actions;
 export default covidSlice.reducer;

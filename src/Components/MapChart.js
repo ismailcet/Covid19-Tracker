@@ -1,17 +1,21 @@
-import React, { memo, useState } from "react";
-import {
-  ZoomableGroup,
-  ComposableMap,
-  Geographies,
-  Geography,
-} from "react-simple-maps";
+import React, { memo } from "react";
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import ReactTooltip from "react-tooltip";
+
 import { useDispatch } from "react-redux";
-import { fetchCovidData } from "../Redux/Slices/covidSlice";
-const MapChart = ({ setTooltipContent }) => {
+import {
+  fetchCountryImage,
+  fetchCovidData,
+  setLoading,
+} from "../Redux/Slices/covidSlice";
+
+import CountryData from "./CountryData";
+
+const MapChart = () => {
   const dispatch = useDispatch();
+
   return (
-    <div data-tip="">
+    <div data-tip="" className="maps">
       <ComposableMap>
         <Geographies geography="/features.json">
           {({ geographies }) =>
@@ -19,12 +23,33 @@ const MapChart = ({ setTooltipContent }) => {
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
-                onClick={(e) => dispatch(fetchCovidData(geo.properties.name))}
+                onMouseEnter={() => {
+                  dispatch(fetchCovidData(geo.properties.name));
+                  dispatch(fetchCountryImage(geo.id));
+                }}
+                onMouseLeave={() => {
+                  dispatch(setLoading());
+                }}
+                style={{
+                  default: {
+                    fill: "#D6D6DA",
+                    outline: "none",
+                  },
+                  hover: {
+                    fill: "#F53",
+                    outline: "none",
+                  },
+                  pressed: {
+                    fill: "#E42",
+                    outline: "none",
+                  },
+                }}
               />
             ))
           }
         </Geographies>
       </ComposableMap>
+      <ReactTooltip>{<CountryData />}</ReactTooltip>
     </div>
   );
 };

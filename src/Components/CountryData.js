@@ -6,16 +6,32 @@ const CountryData = () => {
   const recovered = useSelector((state) => state.covid.recovered);
   const deaths = useSelector((state) => state.covid.deaths);
   const isLoading = useSelector((state) => state.covid.isLoading);
+  const countryImg = useSelector((state) => state.covid.img);
+  const imageLoading = useSelector((state) => state.covid.isImageLoading);
 
   return (
     <div className="countryData">
       {isLoading === true ? (
         <p> Loading ...</p>
       ) : (
-        <div>
-          <h1>{confirmed}</h1>
-          <h1>{recovered}</h1>
-          <h1>{deaths}</h1>
+        <div className="covid-data">
+          <img
+            src={imageLoading ? "" : countryImg}
+            alt="CountryImage"
+            className="country_img"
+          />
+          <p className="data-text">
+            <span>Confirmed: </span>
+            {confirmed}
+          </p>
+          <p className="data-text">
+            <span>Recovered: </span>
+            {recovered}
+          </p>
+          <p className="data-text">
+            <span>Deaths: </span>
+            {deaths}
+          </p>
         </div>
       )}
     </div>

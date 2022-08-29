@@ -12,11 +12,26 @@ svg {
   vertical-align: middle;
 }
 
-path {
-  fill: #2a354d;
-}
-
 .App {
   font-family: sans-serif;
   text-align: center;
+}
+.maps {
+  padding: 0 3rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ismailcet {
+  margin-left: 0.4rem;
+  text-decoration: none;
+  color: #000;
 }
